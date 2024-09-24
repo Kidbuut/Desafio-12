@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: nestjs-app
-        image: MikeAdams/desafio12:latest
+        image: mj08adames/desafio12:latest
         ports:
         - containerPort: 3000
         env:
