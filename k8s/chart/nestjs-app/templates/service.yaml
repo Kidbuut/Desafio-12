@@ -2,6 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: nestjs-service  # Nombre del servicio
+  namespace: <tu-namespace>  # Asegúrate de que coincida con el namespace de tu deployment
   labels:
     helm.sh/chart: nestjs-app-0.1.0
     app.kubernetes.io/name: nestjs-app  # Nombre de la aplicación
