@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nestjs-app  # Nombre consistente
+spec:
+  replicas: 1  # Asegúrate de que haya solo un pod
+  selector:
+    matchLabels:
+      app: nestjs-app  # Coincidir con el nuevo nombre del deployment
+  template:
+    metadata:
+      labels:
+        app: nestjs-app  # Coincidir con el nuevo nombre del deployment
+    spec:
+      containers:
+      - name: nestjs-app  # Nombre del contenedor
+        image: {{ .Values.nestjs.image }}:{{ .Values.nestjs.tag }}  # Utiliza los valores de values.yaml
+        imagePullPolicy: {{ .Values.nestjs.pullPolicy | default "IfNotPresent" }}  # Política de extracción
+        ports:
+        - containerPort: {{ .Values.nestjs.port }}  # Utiliza el puerto definido en values.yaml
+        env:
+        - name: MONGO_DB_URI
+          value: {{ .Values.env.MONGO_DB_URI }}  # Toma el valor de values.yaml
+        - name: MONGO_DB_NAME
+          value: {{ .Values.env.MONGO_DB_NAME }}  # Toma el valor de values.yaml
+        - name: MONGO_DB_USER
+          value: {{ .Values.env.MONGO_DB_USER }}  # Toma el valor de values.yaml
+        - name: MONGO_DB_PASS
+          value: {{ .Values.env.MONGO_DB_PASS }}  # Toma el valor de values.yaml

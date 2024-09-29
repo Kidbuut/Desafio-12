@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nestjs-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nestjs-app
+  template:
+    metadata:
+      labels:
+        app: nestjs-app
+    spec:
+      containers:
+      - name: nestjs-app
+        image: {{ .Values.nestjs.image }}:{{ .Values.nestjs.tag }}
+        ports:
+        - containerPort: {{ .Values.nestjs.port }}
+        env:
+        - name: MONGO_DB_URI
+          value: {{ .Values.env.MONGO_DB_URI }}
+        - name: MONGO_DB_NAME
+          value: {{ .Values.env.MONGO_DB_NAME }}
+        - name: MONGO_DB_USER
+          value: {{ .Values.env.MONGO_DB_USER }}
+        - name: MONGO_DB_PASS
+          value: {{ .Values.env.MONGO_DB_PASS }}

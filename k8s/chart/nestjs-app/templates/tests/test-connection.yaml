@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb-service  # Nombre del servicio
+  labels:
+    helm.sh/chart: nestjs-app-0.1.0
+    app.kubernetes.io/name: mongodb-service
+    app.kubernetes.io/instance: mongodb-service
+    app.kubernetes.io/part-of: nestjs-app
+spec:
+  type: ClusterIP  # Tipo de servicio
+  ports:
+    - port: 27017  # Puerto del servicio
+      targetPort: 27017  # Puerto al que se dirige
+      protocol: TCP  # Protocolo utilizado
+  selector:
+    app: mongodb  # Asegúrate de que coincida con la etiqueta del deployment de MongoDB
