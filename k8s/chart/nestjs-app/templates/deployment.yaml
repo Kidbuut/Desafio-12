@@ -13,12 +13,12 @@ spec:
         app: mongodb
     spec:
       containers:
-      - name: mongodb
-        image: mongo:latest
-        ports:
-        - containerPort: 27017
-        env:
-        - name: MONGO_INITDB_ROOT_USERNAME
-          value: "mongo"
-        - name: MONGO_INITDB_ROOT_PASSWORD
-          value: "mongo123"
+        - name: mongodb
+          image: mongo:latest
+          ports:
+            - containerPort: 27017
+          env:
+            - name: MONGO_INITDB_ROOT_USERNAME
+              value: "mongo"
+            - name: MONGO_INITDB_ROOT_PASSWORD
+              value: "mongo123"

@@ -5,10 +5,10 @@ metadata:
   labels:
     app: mongodb
 spec:
-  type: ClusterIP
+  type: ClusterIP  # Cambia a LoadBalancer si lo necesitas
   ports:
     - port: 27017
       targetPort: 27017
       protocol: TCP
   selector:
-    app: mongodb
+    app: mongodb  # Debe coincidir con el selector del Deployment
