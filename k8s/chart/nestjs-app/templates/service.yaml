@@ -1,13 +1,14 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: nestjs-service  # Asegúrate de que el nombre coincida
+  name: mongodb-service
   labels:
-    app: nestjs-app
+    app: mongodb
 spec:
-  type: LoadBalancer  # O el tipo que necesites
+  type: ClusterIP
   ports:
-    - port: 80  # El puerto que quieres exponer
-      targetPort: 3000  # El puerto que está escuchando tu aplicación
+    - port: 27017
+      targetPort: 27017
+      protocol: TCP
   selector:
-    app: nestjs-app  # Debe coincidir con las etiquetas del deployment
+    app: mongodb
