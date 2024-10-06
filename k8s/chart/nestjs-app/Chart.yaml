@@ -1,6 +1,18 @@
-apiVersion: v2
-name: nestjs-app
-description: A Helm chart for Kubernetes
-type: application
-version: 0.1.0
-appVersion: "1.0"
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: node-app
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/Kidbuut/Desafio-12'
+    targetRevision: main
+    path: 'App'  # Esta es la carpeta donde tienes los manifiestos
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
