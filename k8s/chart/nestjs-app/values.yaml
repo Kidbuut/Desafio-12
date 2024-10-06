@@ -7,28 +7,28 @@ mongodb:
   dbName: test
 
 nestjs:
-  image: leanespind92/desafio12
+  image: francofazzito/desafiokubernetes
   tag: latest
   pullPolicy: IfNotPresent
-  port: 3000  # Asegúrate de que este puerto esté correctamente asignado
+  port: 3000  # Assuming you are using this port in your deployment
 
 serviceAccount:
-  create: true
-  name: ""  # Deja esto vacío para auto-generar un nombre
+  create: true  # Whether to create a new service account or not
+  name: ""      # Optional: A name for the service account, leave empty to auto-generate one
 
 service:
-  type: LoadBalancer  # Cambia a ClusterIP si no necesitas LoadBalancer
-  port: 80  # Asegúrate de que esto coincida con lo que tu aplicación necesita
+  type: ClusterIP      # Default to ClusterIP, change as needed (e.g., LoadBalancer)
+  port: 80             # Default port, adjust according to your application needs
 
 ingress:
-  enabled: false
+  enabled: false  # Change to `true` to enable ingress
   annotations: {}
   hosts:
     - host: "chart-example.local"
       paths: []
 
 autoscaling:
-  enabled: false
+  enabled: false  # Set to `true` to enable HPA
   minReplicas: 1
   maxReplicas: 100
   targetCPUUtilizationPercentage: 80

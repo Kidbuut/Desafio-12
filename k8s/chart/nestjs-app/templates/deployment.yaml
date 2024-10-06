@@ -1,26 +1,31 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mongodb
-  labels:
-    app: mongodb
+  name: my-nestjs-app-primary  # Renamed to a unique deployment name
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: mongodb
+      app: my-nestjs-app-primary  # Match the new deployment name
   template:
     metadata:
       labels:
-        app: mongodb
+        app: my-nestjs-app-primary  # Match the new deployment name
     spec:
       containers:
-        - name: mongodb
-          image: mongo:latest
-          ports:
-            - containerPort: 27017
-          env:
-            - name: MONGO_INITDB_ROOT_USERNAME
-              value: "mongo"
-            - name: MONGO_INITDB_ROOT_PASSWORD
-              value: "mongo123"
+      - name: nestjs
+        image: "francofazzito/desafiokubernetes:latest"
+        imagePullPolicy: IfNotPresent
+        ports:
+          - containerPort: 3000
+        env:
+        - name: MONGO_DB_URI
+          value: "mongodb://mongo:mongo123@mongodb-service:27017/test"  # Definir la URI completa de conexión
+        - name: MONGO_DB_NAME
+          value: "test"
+        - name: MONGO_DB_USER
+          value: "mongo"
+        - name: MONGO_DB_PASS
+          value: "mongo123"
+
+

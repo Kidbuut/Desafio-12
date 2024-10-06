@@ -1,17 +1,16 @@
+# Source: nestjs-app/templates/tests/test-connection.yaml
 apiVersion: v1
-kind: Service
+kind: Pod
 metadata:
-  name: mongodb-service  # Nombre del servicio
+  name: my-nestjs-app-primary-test-connection  # Ensure test pod name is unique
   labels:
     helm.sh/chart: nestjs-app-0.1.0
-    app.kubernetes.io/name: mongodb-service
-    app.kubernetes.io/instance: mongodb-service
+    app.kubernetes.io/name: my-nestjs-app-primary  # Match the naming convention
+    app.kubernetes.io/instance: my-nestjs-app-primary
     app.kubernetes.io/part-of: nestjs-app
 spec:
-  type: ClusterIP  # Tipo de servicio
-  ports:
-    - port: 27017  # Puerto del servicio
-      targetPort: 27017  # Puerto al que se dirige
-      protocol: TCP  # Protocolo utilizado
-  selector:
-    app: mongodb  # Asegúrate de que coincida con la etiqueta del deployment de MongoDB
+  containers:
+  - name: test
+    image: busybox
+    command: ['sh', '-c', 'echo "Testing connection"']
+  restartPolicy: Never
